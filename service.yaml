@@ -1,0 +1,27 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: haproxy-service
+spec:
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800 # 3 hr
+  selector:
+    app: haproxy
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8000
+    - name: https
+      protocol: TCP
+      port: 9000
+    - name: stats
+      protocol: TCP
+      port: 26999
+    - name: redis
+      protocol: TCP
+      port: 6379
+    - name: redis-exporter
+      protocol: TCP
+      port: 8404
